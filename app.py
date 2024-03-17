@@ -38,12 +38,35 @@ def admin():
     dataempl = con.fetchall()
     return render_template('admin.html', data=data, dataempl=dataempl)
 
+
+
+
+
 @app.route('/empleado')
 def empleado():
     conn = mysql.connection.cursor()
     conn.execute('SELECT * FROM users WHERE rol = "empleado"')
     data = conn.fetchall()
-    return render_template('empleados.html', data=data)
+
+    con = mysql.connection.cursor()
+
+    query = """
+    SELECT 
+        users.nombre,
+        users.contacto,
+        COUNT(palets.empleado) AS cantidad_palets
+    FROM 
+        users
+    INNER JOIN 
+        palets  ON users.id = palets.empleado
+    GROUP BY 
+        palets.empleado
+    """
+    con.execute(query)
+    palets= con.fetchall()
+
+
+    return render_template('empleados.html', data=data, palets=palets )
 
 @app.route('/add_palet', methods=['POST'])
 def add_palet():
@@ -94,7 +117,7 @@ def login():
             error = 'Usuario o Contraseña incorrectos'
             return render_template('index.html', error=error)
     
-    return render_template('index.html')
+    return render_template('login.html')
 
 @app.route('/add_employed', methods=['POST'])
 def add_employed():

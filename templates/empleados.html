@@ -19,19 +19,28 @@
             
         </div>
     </nav>
-    <div class="container">
+   <div class="container">
         <div class="row d-flex justify-content-center">
-            {% for card in data if card.3 != "none" %}
+            {% for card in palets if card.3 != "none" %}
             <div class="col-md-4">
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">{{ card.2 }}</h5>
-                        <p class="card-text">Contacto : {{ card.3 }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+
+
+                        <h5 class="card-title">{{ card.0 }}</h5>
+                         <h5 class="card-subtitle mb-2 text-muted h6" >Entregado: 0 / {{ card.2}}</h5>
+                            </div>
+                        <p class="card-text">Contacto : {{ card.1 }}</p>
                     </div>
+
+
+
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
+
 </body>
 </html>

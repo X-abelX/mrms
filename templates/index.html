@@ -1,57 +1,172 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;600&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/ffec4ec2ed.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles/stylelog.css')}}">
-    <link rel="icon" href="/static/img/man2.png" type="image/x-icon">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Login</title>
-  </head>
-  <body class="bg-body">
-      <section>
-        <div class="row g-0 d-flex justify-content-center">
-            <div class="col-lg-5 bg-body d-flex  flex-column align-items-end min-vh-100">
-                <div class="px-lg-5 pt-lg-4 pb-lg-3 p-4 mb-auto w-100 d-flex justify-content-center">
-                    <img src="/static/img/man2.png" alt="Bootstrap" width="100" height="88"/>
-                </div>
-                <div class="align-self-center w-100 px-lg-5 py-lg-4 p-4">
-                <h1 class="font-weight-bold mb-4 text-dark">Panel De Acceso</h1>
-                {% if error %}
-                <p class="text-danger">{{ error }}</p>
-                {% endif %}
-                <form class="mb-5" action="/login" method="POST">
-                    <div class="mb-4">
-                      <label for="exampleInputEmail1" class="form-label font-weight-bold text-dark">Usuario</label>
-                      <input name="correo" type="text" class="form-control bg-light border-0 text-dark" id="exampleInputEmail1" placeholder="Ingresa Usuario" aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-4">
-                      <label for="exampleInputPassword1" class="form-label font-weight-bold text-dark">Contraseña</label>
-                      <input name="pass" type="password" class="form-control bg-light border-0 mb-2 text-dark" placeholder="Ingresa tu contraseña" id="exampleInputPassword1">
-                      
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
-                  </form>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles/stylelog.css')}}">
+  <link rel="icon" href="/static/img/man2.png" type="image/x-icon">
+  <link rel="stylesheet" href="/static/styles/style.css">
 
-                
-                </div>
-                <div class="text-center px-lg-5 pt-lg-3 pb-lg-4 p-4 mt-auto w-100">
-                    <p class="d-inline-block mb-0">a</p> <a href="" class="text-light font-weight-bold text-decoration-none">Crea una ahora</a>
-                </div>
-            </div>
+  <title>MRMS</title>
+  <style>
+    .cuadrado {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(to bottom right, #00ff00, #008000);
+      border-radius: 10px;
+      box-shadow: 2px 29px 28px -15px rgba(0, 0, 0, 0.6);
+    }
+  </style>
+</head>
+
+<body class="bg-body">
+  <nav class="navbar navbar-expand-lg bg-light px-2">
+    <div class="container-fluid">
+      <img src="/static/img/man2.png" alt="Bootstrap" width="50" height="44">
+      <a href="/login"> <button class="btn btn-outline-success btn-sm">Entrar</button></a>
+    </div>
+
+  </nav>
+  <section>
+    <!-- Hero -->
+
+    <div class="hero p-5 text-center bg-image rounded-3">
+      <div class="mask" style="background-color: rgba(0, 0, 0, 0.2); height: 100%;">
+        <div class="d-flex justify-content-center align-items-center h-100">
+          <div class="text-white">
+            <h1 class="mb-3 font-weigh-bold">MRMS</h1>
+            <h4 class="mb-3">Transporte y Logistica</h4>
+            <a class="btn btn-primary btn-lg" href="#!" role="button">Contactarnos</a>
+          </div>
         </div>
-      </section>
-    <!-- Optional JavaScript -->
-    <!-- Popper.js first, then Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
-  </body>
+      </div>
+    </div>
+    <!-- Hero -->
+    <!-- -->
+
+    <div class="container" style="min-height: 80vh; display: flex; justify-content: center; align-items: center;">
+      <div class="row p-2 g-3">
+        <div class="col-lg-4 col-md-12 mb-4 ">
+          <div class="row border-bottom border-dark py-2">
+            <div class="col-3 ">
+              <div class="cuadrado d-flex justify-content-center align-items-center">
+                <img src="/static/img/map.png" alt="map" width="50px">
+              </div>
+            </div>
+            <div class="col-9">
+              <h5 class="text-dark">Transporte Local</h5>
+              <h6 class="text-muted w-75">Entregas locales en el mismo dia.</h6>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-12 mb-4 ">
+          <div class="row border-bottom border-dark py-2">
+            <div class="col-3 ">
+              <div class="cuadrado d-flex justify-content-center align-items-center">
+                <img src="/static/img/container.png" alt="groupage" width="50px">
+              </div>
+            </div>
+            <div class="col-9">
+              <h5 class="text-dark">Grupaje</h5>
+              <h6 class="text-muted w-75">Si no llenas el camión pagarás solo lo que ocupe tu mercancía.</h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12 mb-4 ">
+          <div class="row border-bottom border-dark py-2">
+            <div class="col-3 ">
+              <div class="cuadrado d-flex justify-content-center align-items-center">
+                <img src="/static/img/package.png" alt="package" width="50px">
+              </div>
+            </div>
+            <div class="col-9">
+              <h5 class="text-dark">Paquetería Industrial
+              </h5>
+              <h6 class="text-muted w-75">Entregamos tus envíos de paquetería en España y Europa.</h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12 mb-4 ">
+          <div class="row border-bottom border-dark py-2">
+            <div class="col-3 ">
+              <div class="cuadrado d-flex justify-content-center align-items-center">
+                <img src="/static/img/truck.png" alt="truck" width="50px">
+              </div>
+            </div>
+            <div class="col-9">
+              <h5 class="text-dark">Carga completa</h5>
+              <h6 class="text-muted w-75">Cargas completas nacional-internacina.</h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12 mb-4 ">
+          <div class="row border-bottom border-dark py-2">
+            <div class="col-3 ">
+              <div class="cuadrado d-flex justify-content-center align-items-center">
+                <img src="/static/img/big-truck.png" alt="big truck" width="50px">
+              </div>
+            </div>
+            <div class="col-9">
+              <h5 class="text-dark">Transportes especiales</h5>
+              <h6 class="text-muted w-75">Sea lo que sea nosotros te lo llevamos.</h6>
+            </div>
+          </div>
+        </div>
+
+
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center text-lg-start" style="background-color: #db6930;">
+    <div class="container d-flex justify-content-center py-3">
+      <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #54456b;">
+        <i class="fab fa-facebook-f"></i>
+      </button>
+      <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #54456b;">
+        <i class="fab fa-youtube"></i>
+      </button>
+      <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #54456b;">
+        <i class="fab fa-instagram"></i>
+      </button>
+      <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #54456b;">
+        <i class="fab fa-twitter"></i>
+      </button>
+    </div>
+
+    <!-- Copyright -->
+    <div class="text-center text-white p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      ©
+      <script>
+        document.write(new Date().getFullYear());
+      </script> Copyright:
+      <a class="text-white" href="#">MRMS Transporte y Logistica</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Optional JavaScript -->
+  <!-- Popper.js first, then Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+    integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+    crossorigin="anonymous"></script>
+  <script>
+    const fecha = new Date().getFullYear()
+  </script>
+</body>
+
 </html>
 
 <!-- Ninguna de las imagenes son de mi propiedad, a continuación están los links de los autores

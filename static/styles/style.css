@@ -1,3 +1,15 @@
 .input-group-append {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.hero {
+  background-image: url("/static/img/road-truck.jpg");
+  background-size: cover;
+  height: 90vh;
+}
+
+@media only screen and (max-width: 768px) {
+  .hero {
+    background-image: url("/static/img/road-truck-mobile.jpg");
   }
+}
