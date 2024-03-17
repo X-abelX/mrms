@@ -8,6 +8,14 @@
   height: 90vh;
 }
 
+.footer-bg {
+  background: rgb(121, 3, 208);
+  background: linear-gradient(
+    120deg,
+    rgba(121, 3, 208, 1) 43%,
+    rgba(10, 4, 153, 1) 100%
+  );
+}
 @media only screen and (max-width: 768px) {
   .hero {
     background-image: url("/static/img/road-truck-mobile.png");
