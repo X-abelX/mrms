@@ -48,7 +48,9 @@
         </div>
         <div class="navbar fixed-bottom">
             <div class="container d-flex justify-content-center">
-                <a href="/login"> <button class="btn btn-danger btn-sm">Cerrar sesion</button></a>
+                <form action="/logout" method="POST">
+                    <button type="submit" class="btn btn-danger btn-sm">Cerrar sesion</button>
+                </form>
             </div>
         </div>
     </div>

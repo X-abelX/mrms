@@ -42,7 +42,10 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#modal">Cerrar sesion</a>
+            <li>
+              <form action="/logout" method="POST">
+                <button type="submit" class="dropdown-item text-danger">Cerrar sesion</button>
+              </form>
             </li>
           </ul>
         </li>
