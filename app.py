@@ -29,47 +29,56 @@ def index():
 
 @app.route("/home")
 def home():
-    conn = mysql.connection.cursor()
-    conn.execute("SELECT * FROM palets")
-    data = conn.fetchall()
-    return render_template("home.html", data=data)
+    if "username" in session:
+        conn = mysql.connection.cursor()
+        conn.execute("SELECT * FROM palets")
+        data = conn.fetchall()
+        return render_template("home.html", data=data)
+    else:
+        return redirect(url_for("login"))
 
 
 @app.route("/admin")
 def admin():
-    conn = mysql.connection.cursor()
-    conn.execute("SELECT * FROM palets")
-    data = conn.fetchall()
-    con = mysql.connection.cursor()
-    con.execute('SELECT * FROM users WHERE rol = "empleado"')
-    dataempl = con.fetchall()
-    return render_template("admin.html", data=data, dataempl=dataempl)
+    if "username" in session:
+        conn = mysql.connection.cursor()
+        conn.execute("SELECT * FROM palets")
+        data = conn.fetchall()
+        con = mysql.connection.cursor()
+        con.execute('SELECT * FROM users WHERE rol = "empleado"')
+        dataempl = con.fetchall()
+        return render_template("admin.html", data=data, dataempl=dataempl)
+    else:
+        return redirect(url_for("login"))
 
 
 @app.route("/empleado")
 def empleado():
-    conn = mysql.connection.cursor()
-    conn.execute('SELECT * FROM users WHERE rol = "empleado"')
-    data = conn.fetchall()
+    if "username" in session:
+        conn = mysql.connection.cursor()
+        conn.execute('SELECT * FROM users WHERE rol = "empleado"')
+        data = conn.fetchall()
 
-    con = mysql.connection.cursor()
+        con = mysql.connection.cursor()
 
-    query = """
-    SELECT 
-        users.nombre,
-        users.contacto,
-        COUNT(palets.empleado) AS cantidad_palets
-    FROM 
-        users
-    INNER JOIN 
-        palets  ON users.id = palets.empleado
-    GROUP BY 
-        palets.empleado
-    """
-    con.execute(query)
-    palets = con.fetchall()
+        query = """
+        SELECT 
+            users.nombre,
+            users.contacto,
+            COUNT(palets.empleado) AS cantidad_palets
+        FROM 
+            users
+        INNER JOIN 
+            palets  ON users.id = palets.empleado
+        GROUP BY 
+            palets.empleado
+        """
+        con.execute(query)
+        palets = con.fetchall()
 
-    return render_template("empleados.html", data=data, palets=palets)
+        return render_template("empleados.html", data=data, palets=palets)
+    else:
+        return redirect(url_for("login"))
 
 
 @app.route("/add_palet", methods=["POST"])
