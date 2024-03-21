@@ -22,20 +22,25 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/authError")
+def authError():
+    return render_template("401.html")
+
+
 @app.route("/home")
 def home():
-    if "username" in session:
+    if "username" in session and session["role"] == "admin":
         conn = mysql.connection.cursor()
         conn.execute("SELECT * FROM palets")
         data = conn.fetchall()
         return render_template("home.html", data=data)
     else:
-        return redirect(url_for("login"))
+        return redirect(url_for("authError"))
 
 
 @app.route("/admin")
 def admin():
-    if "username" in session:
+    if "username" in session and session["role"] == "admin":
         conn = mysql.connection.cursor()
         conn.execute("SELECT * FROM palets")
         data = conn.fetchall()
@@ -44,12 +49,12 @@ def admin():
         dataempl = con.fetchall()
         return render_template("admin.html", data=data, dataempl=dataempl)
     else:
-        return redirect(url_for("login"))
+        return redirect(url_for("authError"))
 
 
 @app.route("/empleado")
 def empleado():
-    if "username" in session:
+    if "username" in session and session["role"] == "empleado":
         conn = mysql.connection.cursor()
         conn.execute('SELECT * FROM users WHERE rol = "empleado"')
         data = conn.fetchall()
@@ -73,7 +78,7 @@ def empleado():
 
         return render_template("empleados.html", data=data, palets=palets)
     else:
-        return redirect(url_for("login"))
+        return redirect(url_for("authError"))
 
 
 @app.route("/add_palet", methods=["POST"])
