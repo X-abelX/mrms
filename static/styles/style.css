@@ -20,7 +20,7 @@
 }
 
 .hero {
-  background-image: url("/static/img/road-truck-logo.png");
+  background-image: url("/static/img/road-truck-logo.webp");
   background-size: cover;
   height: 90vh;
 }
@@ -35,6 +35,6 @@
 }
 @media only screen and (max-width: 768px) {
   .hero {
-    background-image: url("/static/img/road-truck-mobile.png");
+    background-image: url("/static/img/road-truck-mobile.webp");
   }
 }
