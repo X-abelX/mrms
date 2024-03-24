@@ -52,6 +52,11 @@ def admin():
         return redirect(url_for("authError"))
 
 
+@app.route("/empleado/<string:empleado>")
+def detail_empleado(empleado):
+    return render_template("detail_empleado.html", empleado=empleado)
+
+
 @app.route("/empleado")
 def empleado():
     if "username" in session and session["role"] == "empleado":
