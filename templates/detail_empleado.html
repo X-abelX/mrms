@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRMS</title>
+</head>
+
+<body>
+
+    <div class="row">
+        <div class="table-responsive text-nowrap" id="col">
+            <h1 class="d-flex justify-content-center">Empleado: {{ empleado }}</h1>
+            <table class="table table-striped">
+                <thead class="bg-light">
+                    <tr>
+                        <th>Albaran</th>
+                        <th>Contacto</th>
+                        <th>Direccion</th>
+                        <th>Fecha</th>
+                        <th>Palets</th>
+                        <th>Peso</th>
+                    </tr>
+                </thead>
+                <form action="/assign_employed" method="POST">
+                    <tbody id="palets">
+                        {% for row in data if row.10 != "mam" %}
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" onclick="toggleForm()"
+                                        name="selected_palets" value="{{ row.0 }}" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        {{ row.1 }}
+                                    </label>
+                                </div>
+                            </td>
+                            <td>{{ row.2 }}</td>
+                            <td>{{ row.3 }}</td>
+                            <td>{{ row.4 }}</td>
+                            <td>{{ row.5 }}</td>
+                            <td>{{ row.6 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <div class="navbar fixed-bottom bg-light" id="repartidorForm" style="display:none;">
+                        <div class="container d-flex justify-content-center">
+                            <div class="d-flex justify-content-center">
+                                <select name="employed" class="form-select" aria-label="Default select example">
+                                    <option selected>Empleados</option>
+                                    {% for row in dataempl %}
+                                    <option value="{{ row.0 }}">{{ row.2 }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit" class="btn btn-success m-2">Asignar</button>
+                                <button type="button" class="btn btn-danger m-2">Devolver</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
