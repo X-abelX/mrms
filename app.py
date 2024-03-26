@@ -52,11 +52,6 @@ def admin():
         return redirect(url_for("authError"))
 
 
-@app.route("/empleado/<string:empleado>")
-def detail_empleado(empleado):
-    return render_template("detail_empleado.html", empleado=empleado)
-
-
 @app.route("/empleado")
 def empleado():
     if "username" in session and session["role"] == "empleado":
@@ -68,6 +63,7 @@ def empleado():
 
         query = """
         SELECT 
+            users.id,
             users.nombre,
             users.contacto,
             COUNT(palets.empleado) AS cantidad_palets
@@ -80,10 +76,25 @@ def empleado():
         """
         con.execute(query)
         palets = con.fetchall()
+        print(palets)
 
         return render_template("empleados.html", data=data, palets=palets)
     else:
         return redirect(url_for("authError"))
+
+
+@app.route("/empleado/<string:empleado>")
+def detail_empleado(empleado):
+    conn = mysql.connection.cursor()
+    conn.execute("SELECT * FROM palets")
+    data = conn.fetchall()
+    con = mysql.connection.cursor()
+    con.execute("SELECT * FROM users WHERE users.id = %s", empleado)
+    user_active = con.fetchone()
+
+    return render_template(
+        "detail_empleado.html", empleado=empleado, data=data, user=user_active
+    )
 
 
 @app.route("/add_palet", methods=["POST"])
