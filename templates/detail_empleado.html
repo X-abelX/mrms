@@ -19,46 +19,40 @@
         <div class="container-fluid">
             <img src="/static/img/man2.png" alt="Bootstrap" width="50" height="44">
 
+            <h2>{{user.2}}</h2>
         </div>
         <div class="collapse navbar-collapse m-2" id="navbarSupportedContent">
-
         </div>
 
     </nav>
     <div class="container">
-        <div class="row">
-            <div class="table-responsive text-nowrap" id="col">
-                <h1 class="d-flex justify-content-center">Empleado: {{ user.2 }}</h1>
+        <div class="sm:col">
+            <!--Card -->
+            {% for row in data if row.11 == empleado %}
+            <div class="card w-auto sm:w-25 mb-2">
+                <a href="/entrega/{{empleado}}/{{row.1}}" style="text-decoration:none;color: black;">
+                    <div class="card-body">
+                        <div class="d-flex flex-row align-items-center">
 
-                <table class="table">
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">Albaran</th>
-                            <th scope="col">Contacto</th>
-                            <th scope="col">Direccion</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Palets</th>
-                            <th scope="col">Peso</th>
-                            <th scope="col">Nota</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for row in data if row.11 == empleado %}
-                        <tr>
-                            <td class="text-dark">{{ row.1 }}</td>
-                            <td class="text-dark">{{ row.2 }}</td>
-                            <td class="text-dark">{{ row.3 }}</td>
-                            <td class="text-dark">{{ row.4 }}</td>
-                            <td class="text-dark">{{ row.5 }}</td>
-                            <td class="text-dark">{{ row.6 }}</td>
-                            <td class="text-dark">{{ row.8 }}</td>
-                        </tr>
-                        {% endfor %}
+                            <h5 class="w-50">{{row.1}}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted w-50">Pallets: {{row.5}} Peso: {{row.6}}</h6>
+                        </div>
+                        <h6 class="card-subtitle mb-2 text-muted">Direccion: {{row.3}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Contacto: {{row.2}}</h6>
+                        {% if row.8|length > 1 %}
+                        <p class="card-text">Nota: {{row.8}}</p>
+                        {% endif %}
+                        {% if row.9 == "1" %}
+                        <p class="card-text">Desp: Si</p>
+                        {% else %}
+                        <p class="card-text">Desp: No</p>
+                        {% endif %}
 
-
-                    </tbody>
-                </table>
+                    </div>
+                </a>
             </div>
+            {% endfor %}
+
             <div class="container d-flex justify-content-center">
                 <a href="/empleado">
                     <button type="submit" class="btn btn-success btn-sm">Volver</button>

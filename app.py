@@ -85,6 +85,7 @@ def empleado():
 
 @app.route("/empleado/<string:empleado>")
 def detail_empleado(empleado):
+
     conn = mysql.connection.cursor()
     conn.execute("SELECT * FROM palets")
     data = conn.fetchall()
@@ -95,6 +96,12 @@ def detail_empleado(empleado):
     return render_template(
         "detail_empleado.html", empleado=empleado, data=data, user=user_active
     )
+
+
+@app.route("/entrega/<string:empleado>/<string:albaran>")
+def entrega(empleado, albaran):
+
+    return render_template("entrega.html")
 
 
 @app.route("/add_palet", methods=["POST"])
