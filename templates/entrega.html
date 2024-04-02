@@ -21,33 +21,69 @@
 
         .delete-button {
             position: absolute;
+            width: 25px;
+            height: 25px;
             top: 0;
             right: 0;
             background-color: red;
+            border-radius: 50%;
+            border: none;
             color: white;
             cursor: pointer;
+        }
+
+        #imageSlider {
+            width: 80%;
+            overflow-x: scroll;
+            white-space: nowrap;
         }
     </style>
 </head>
 
-<body>
-    <button id="start-camera">Iniciar cámara</button>
-    <button id="capture-photo" disabled>Capturar foto</button>
-    <button id="take-another-photo" disabled>Realizar otra imagen</button>
-    <video id="camera-stream" autoplay></video>
-    <canvas id="photo" width="120" height="80"></canvas>
+<body class="bg-dark">
+    <main class="d-flex flex-column justify-content-center align-items-center px-2 vh-100 vw-100">
+        <div class="container d-flex justify-content-center align-items-center flex-column">
+            <video id="camera-stream" autoplay class="h-50"></video>
+            <canvas id="photo" width="60" height="40" style="display: none;"></canvas>
+            <div class="d-grid gap-2 d-lg-inline-block d-flex flex-row mt-2">
+                <button id="start-camera" class="btn btn-outline-primary btn-sm col">Iniciar cámara</button>
+                <button id="capture-photo" disabled class="btn btn-success btn-sm col">Capturar foto</button>
+            </div>
 
-    <div id="photo-list">
 
-    </div>
 
+
+            <div id="imageSlider" class="mb-2 w-100">
+                <!-- Imágenes tomadas con la cámara web se agregarán aquí -->
+                <div id="photo-list" class="d-block w-100"></div>
+            </div>
+            <form class="mb-2 vw-100" action="" method="POST">
+                <div class="mb-2 w-100">
+                    <label for="name" class="form-label font-weight-bold text-light">Nombre</label>
+                    <input name="name" type="text" class="form-control bg-light border-0 text-dark" id="name"
+                        placeholder="ingrese un nombre">
+                </div>
+                <div class="w-100">
+                    <label for="dni" class="form-label font-weight-bold text-light">DNI</label>
+                    <input name="dni" type="text" class="form-control bg-light border-0 mb-2 text-dark"
+                        placeholder="DNI" id="dniexampleInputPassword1">
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Guardar</button>
+            </form>
+        </div>
+        <button class="btn btn-success w-75">Entregar</button>
+    </main>
     <script>
         const video = document.getElementById('camera-stream');
         const canvas = document.getElementById('photo');
         const startCameraButton = document.getElementById('start-camera');
         const capturePhotoButton = document.getElementById('capture-photo');
-        const takeAnotherPhotoButton = document.getElementById('take-another-photo');
+
         const photoList = document.getElementById('photo-list');
+
+        capturePhotoButton.style.display = 'none'
+
+
 
         startCameraButton.addEventListener('click', function () {
             navigator.mediaDevices.getUserMedia({
@@ -56,6 +92,8 @@
                 .then(function (stream) {
                     video.srcObject = stream;
                     capturePhotoButton.disabled = false;
+                    startCameraButton.style.display = 'none'
+                    capturePhotoButton.style.display = 'block'
                 })
                 .catch(function (error) {
                     console.error('Error accessing media devices.', error);
@@ -78,16 +116,14 @@
             imgContainer.appendChild(img);
             imgContainer.appendChild(deleteButton);
             photoList.appendChild(imgContainer);
-            video.srcObject.getTracks().forEach(track => track.stop());
-            video.srcObject = null;
-            capturePhotoButton.disabled = true;
-            takeAnotherPhotoButton.disabled = false;
+            //que no desaparezca la camara mejoraria la usabilidad quizas
+            //video.srcObject.getTracks().forEach(track => track.stop());
+            //video.srcObject = null;
+
+
         });
 
-        takeAnotherPhotoButton.addEventListener('click', function () {
-            startCameraButton.click();
-            takeAnotherPhotoButton.disabled = true;
-        });
+
     </script>
 </body>
 
