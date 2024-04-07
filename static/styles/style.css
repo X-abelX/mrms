@@ -30,12 +30,33 @@
   min-height: 100vh;
   position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center; 
+  align-items: center;*/
 }
 .frase {
   text-shadow: 1px 6px 8px rgba(0, 0, 0, 0.55);
+  font-weight: 900;
+  font-family: "Inter";
+  font-size: 3rem;
 }
+
+.sub-frase {
+  text-shadow: 1px 6px 8px rgba(0, 0, 0, 0.55);
+  font-family: "Licorice", cursive;
+  font-weight: 200;
+  font-style: normal;
+}
+.curved-text {
+  width: 100%; /* Ancho del contenedor */
+  height: 150px; /* Alto del contenedor */
+  background-color: lightblue;
+  padding: 20px;
+  -webkit-shape-outside: circle(50%);
+  shape-outside: circle(50%);
+  -webkit-clip-path: circle(50%);
+  clip-path: circle(50%);
+}
+
 video {
   position: absolute;
   top: 0;
@@ -58,7 +79,7 @@ video {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #1c1c1d;
+  background-color: #121212;
   opacity: 0.5;
   mix-blend-mode: overlay;
 }
@@ -71,6 +92,47 @@ video {
     rgba(10, 4, 153, 1) 100%
   );
 }
+
+.animate_text {
+  -webkit-animation: text-focus-in 1s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  animation: text-focus-in 1s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
+
+@-webkit-keyframes text-focus-in {
+  0% {
+    -webkit-filter: blur(6px);
+    filter: blur(6px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-filter: blur(0px);
+    filter: blur(0px);
+    opacity: 1;
+  }
+}
+@keyframes text-focus-in {
+  0% {
+    -webkit-filter: blur(6px);
+    filter: blur(6px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-filter: blur(0px);
+    filter: blur(0px);
+    opacity: 1;
+  }
+}
+
+.titles {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+.descript {
+  color: #324a6d;
+}
 @media only screen and (max-width: 768px) {
   .video-sm-bg {
     display: flex;
@@ -78,5 +140,11 @@ video {
 
   .video-lg-bg {
     display: none;
+  }
+  .frase {
+    font-size: 1.8rem;
+  }
+  .sub-frase {
+    font-size: 1.8rem;
   }
 }
