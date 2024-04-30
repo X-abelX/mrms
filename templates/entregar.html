@@ -5,14 +5,31 @@
         <div class="row d-flex justify-content-center">
             <h2 class="text-dark mb-4 text-center">Entregas pendientes</h2>
             {% for card in data %}
-            <div class="card mb-3 shadow bg-body-tertiary">
-                <a href="/empleado/{{ card.1 }}" style="text-decoration:none;color: black;">
-                    <div class="card-body">
-                        <h5 class="card-title">Fecha entrega : {{ card.4 }}</h5>
-                        <h6 class="card-subtitle">Albaran: {{ card.1 }}</h6>
+            <a href="/empleado/{{ card.1 }}" style="text-decoration:none;color: black;">
+                <div class="card mb-4 shadow">
+                    <div class="card-header">
+                        <div class="row">
+                            <div
+                                class="col-2 p-1 bg-body-secondary rounded d-flex justify-content-center align-items-center">
+                                <img src="/static/img/box.png" alt="gps" style="width: 20px;">
+                            </div>
+                            <div class="col-10">
+                                <h6 class="fs-6 fw-semibold">ID: {{ card.0 }}</h6>
+                            </div>
+                        </div>
                     </div>
-                </a>
-            </div>
+                    <div class="card-body">
+                        <div class="d-flex flex-column justify-content-start">
+                            <h5 class="card-subtitle mb-2 text-dark">Direccion: {{card.3}}</h5>
+                            <h6 class="card-title text-muted">Fecha entrega : {{ card.4 }}</h6>
+                            <h6 class="card-title text-success">Cantidad : {{ card.5 }}</h6>
+                            <h6 class="card-title text-success">Peso : {{ card.6 }}Kg.</h6>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+
             {% endfor %}
         </div>
 

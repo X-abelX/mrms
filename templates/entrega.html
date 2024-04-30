@@ -9,7 +9,7 @@
                     <div class="row">
                         <div
                             class="col-2 p-1 bg-body-secondary rounded d-flex justify-content-center align-items-center">
-                            <img src="/static/img/checkform.png" alt="check" style="width: 30px;">
+                            <img src="/static/img/form.png" alt="check" style="width: 30px;">
                         </div>
                         <div class="col-10">
                             <h6 class="fs-6 fw-semibold">Formulario entrega</h6>
@@ -37,41 +37,63 @@
                     <div class="row">
                         <div
                             class="col-2 p-1 bg-body-secondary rounded d-flex justify-content-center align-items-center">
-                            <img src="/static/img/gps.png" alt="gps" style="width: 20px;">
+                            <img src="/static/img/notes.png" alt="check" style="width: 30px;">
                         </div>
                         <div class="col-10">
-                            <h6 class="fs-6 fw-semibold">Adjuntar Imagenes</h6>
+                            <h6 class="fs-6 fw-semibold">Notas</h6>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="d-flex flex-column justify-content-start">
-                        <img src="/static/img/camera.png" alt="camera" style="width: 40px;">
+                        <div class="mb-2 w-100">
+                            <textarea class="form-control" placeholder="Agregar notas" name="notas"
+                                id="floatingTextarea"></textarea>
+
+                        </div>
+
+
                     </div>
                 </div>
             </div>
-
-
-            <div class="d-grid gap-2 d-lg-inline-block d-flex flex-row mt-2">
-                <button id="start-camera" class="btn btn-primary btn-sm col z-4">Iniciar cámara</button>
-                <button id="capture-photo" disabled class="btn btn-success btn-sm col z-5">Capturar foto</button>
-            </div>
-            <div>
-
-
-                <video id="camera-stream" autoplay class="h-25 w-100 mt-3"></video>
-                <canvas id="photo" width="60" height="40" style="display: none;"></canvas>
-            </div>
-
-
-
-            <div id="imageSlider" class="mb-2 w-100">
-                <!-- Imágenes tomadas con la cámara web se agregarán aquí -->
-                <div id="photo-list" class="d-block w-100"></div>
-            </div>
-
-            <button type="submit" class="btn btn-success w-100">Entregar</button>
         </form>
+        <div class="card mb-4 shadow">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-2 p-1 bg-body-secondary rounded d-flex justify-content-center align-items-center">
+                        <img src="/static/img/images.png" alt="gps" style="width: 30px;">
+                    </div>
+                    <div class="col-10">
+                        <h6 class="fs-6 fw-semibold">Adjuntar Imagenes</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-column justify-content-start">
+
+                    <div>
+                        <video id="camera-stream" autoplay class="h-100 w-100 mt-3" style="display: none;"></video>
+                        <canvas id="photo" width="60" height="40" style="display: none;"></canvas>
+                    </div>
+                    <div class="d-grid gap-2 d-lg-inline-block d-flex flex-row mt-2">
+                        <button id="start-camera" class="btn btn-outline-primary  w-100"><img
+                                src="/static/img/camera.png" alt="camera" style="width: 40px;"></button>
+                        <button id="capture-photo" disabled class="btn btn-success w-100">Capturar
+                            foto</button>
+                    </div>
+                    <div id="imageSlider" class="mb-2 w-100">
+                        <!-- Imágenes tomadas con la cámara web se agregarán aquí -->
+                        <div id="photo-list" class="d-block w-100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100">Entregar</button>
+        <a href="/entregar">
+            <button class="btn btn-danger w-100 mt-4">Cancelar</button>
+        </a>
+
     </div>
 </main>
 
@@ -92,6 +114,7 @@
 
 
     startCameraButton.addEventListener('click', function () {
+        video.style.display = 'block';
 
         navigator.mediaDevices.getUserMedia({
             video: { facingMode: 'environment' }

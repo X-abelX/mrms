@@ -61,14 +61,14 @@ def admin():
 
 @app.route("/entregar")
 def entregas():
-    print(session)
+
     if "username" in session and session["role"] == "empleado":
         id_empleado = str(session["userId"])
         print(id_empleado)
         conn = mysql.connection.cursor()
         conn.execute("SELECT * FROM palets WHERE empleado = %s", id_empleado)
         data = conn.fetchall()
-        print(data)
+
         con = mysql.connection.cursor()
 
         return render_template("entregar.html", data=data)
@@ -106,12 +106,13 @@ def entrega(empleado, albaran):
 def entrega_completa(albaran):
     name = request.form["name"]
     dni = request.form["dni"]
+    nota = request.form["notas"]
     entregado = 1
     albaran = albaran
     conn = mysql.connection.cursor()
     conn.execute(
-        "UPDATE palets SET recibe_nombre = %s, recibe_dni = %s, entrega = %s WHERE albaran = %s",
-        (name, dni, entregado, albaran),
+        "UPDATE palets SET recibe_nombre = %s, recibe_dni = %s, nota = %s, entrega = %s WHERE albaran = %s",
+        (name, dni, nota, entregado, albaran),
     )
     mysql.connection.commit()
     return redirect(url_for("empleado"))
