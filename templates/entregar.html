@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<main class="d-flex px-5 py-3 vh-100 vw-100 rounded-top-5 bg-light overflow-scroll">
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-center">
+            <h2 class="text-dark mb-4 text-center">Entregas pendientes</h2>
+            {% for card in data %}
+            <div class="card mb-3 shadow bg-body-tertiary">
+                <a href="/empleado/{{ card.1 }}" style="text-decoration:none;color: black;">
+                    <div class="card-body">
+                        <h5 class="card-title">Fecha entrega : {{ card.4 }}</h5>
+                        <h6 class="card-subtitle">Albaran: {{ card.1 }}</h6>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+</main>
+{% endblock %}

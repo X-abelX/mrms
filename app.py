@@ -1,6 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask_mysqldb import MySQL, MySQLdb
+from flask import send_from_directory
 import re
+import base64
+import os
+import json
+import uuid
+import time
 
 app = Flask(__name__)
 
@@ -19,7 +25,8 @@ mysql = MySQL(app)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+
+    return render_template("login.html")
 
 
 @app.route("/authError")
@@ -52,56 +59,65 @@ def admin():
         return redirect(url_for("authError"))
 
 
-@app.route("/empleado")
-def empleado():
+@app.route("/entregar")
+def entregas():
+    print(session)
     if "username" in session and session["role"] == "empleado":
+        id_empleado = str(session["userId"])
+        print(id_empleado)
         conn = mysql.connection.cursor()
-        conn.execute('SELECT * FROM users WHERE rol = "empleado"')
+        conn.execute("SELECT * FROM palets WHERE empleado = %s", id_empleado)
         data = conn.fetchall()
-
+        print(data)
         con = mysql.connection.cursor()
 
-        query = """
-        SELECT 
-            users.id,
-            users.nombre,
-            users.contacto,
-            COUNT(palets.empleado) AS cantidad_palets
-        FROM 
-            users
-        INNER JOIN 
-            palets  ON users.id = palets.empleado
-        GROUP BY 
-            palets.empleado
-        """
-        con.execute(query)
-        palets = con.fetchall()
-        print(palets)
-
-        return render_template("empleados.html", data=data, palets=palets)
+        return render_template("entregar.html", data=data)
     else:
         return redirect(url_for("authError"))
 
 
-@app.route("/empleado/<string:empleado>")
-def detail_empleado(empleado):
+@app.route("/empleado")
+def empleado():
+    if "username" in session and session["role"] == "empleado":
+        user = session["username"]
+        print(user)
+        return render_template("empleados.html", user=user)
+    else:
+        return redirect(url_for("authError"))
 
+
+@app.route("/empleado/<string:albaran>")
+def detail_empleado(albaran):
+    empleado = session["userId"]
     conn = mysql.connection.cursor()
-    conn.execute("SELECT * FROM palets")
-    data = conn.fetchall()
-    con = mysql.connection.cursor()
-    con.execute("SELECT * FROM users WHERE users.id = %s", empleado)
-    user_active = con.fetchone()
+    conn.execute("SELECT * FROM palets WHERE palets.albaran = %s", (albaran,))
+    data = conn.fetchone()
 
-    return render_template(
-        "detail_empleado.html", empleado=empleado, data=data, user=user_active
-    )
+    return render_template("detail_entrega.html", data=data, empleado=empleado)
 
 
 @app.route("/entrega/<string:empleado>/<string:albaran>")
 def entrega(empleado, albaran):
 
-    return render_template("entrega.html")
+    return render_template("entrega.html", albaran=albaran)
+
+
+@app.route("/entrega_completa/<string:albaran>", methods=["POST"])
+def entrega_completa(albaran):
+    name = request.form["name"]
+    dni = request.form["dni"]
+    entregado = 1
+    albaran = albaran
+    conn = mysql.connection.cursor()
+    conn.execute(
+        "UPDATE palets SET recibe_nombre = %s, recibe_dni = %s, entrega = %s WHERE albaran = %s",
+        (name, dni, entregado, albaran),
+    )
+    mysql.connection.commit()
+    return redirect(url_for("empleado"))
+
+
+# ruta paraguardar la firma
 
 
 @app.route("/add_palet", methods=["POST"])
@@ -159,12 +175,14 @@ def login():
             (username, password),
         )
         account = conn.fetchone()
+
         mysql.connection.commit()
 
         if account:
-            # session["loggedin"] = True
+            session["userId"] = account[0]
             session["username"] = account[2]
             session["role"] = account[1]
+
             if account[1] == "empresa":
                 return redirect(url_for("home"))
             elif account[1] == "admin":
@@ -219,6 +237,37 @@ def assign_empolyed():
             )
         mysql.connection.commit()
         return redirect(url_for("assign_palets"))
+
+
+@app.route("/img/<filename>")
+def send_uploaded_file(filename):
+    return send_from_directory("C:/imgmrms", filename)
+
+
+@app.route("/upload_images/<string:albaran>", methods=["POST"])
+def upload_images(albaran):
+    print(albaran)
+    images = request.json["imgBase64"]
+    image_names = []  # Lista para guardar los nombres de las imágenes
+    for img in images:
+        img_data = base64.b64decode(img.split(",")[1])
+        unique_filename = str(uuid.uuid4()) + ".png"  # Generate a unique filename
+        with open(os.path.join("C:/imgmrms", unique_filename), "wb") as f:
+            f.write(img_data)
+        image_names.append(unique_filename)  # Agrega el nombre de la imagen a la lista
+
+    # Convierte la lista de nombres de imágenes en una cadena de texto
+    image_names_str = ", ".join(image_names)
+
+    # Actualiza la fila existente con la cadena de nombres de imágenes
+    cur = mysql.connection.cursor()
+    cur.execute(
+        "UPDATE palets SET img = %s WHERE albaran = %s", (image_names_str, albaran)
+    )
+    mysql.connection.commit()
+    print("hola")
+
+    return redirect(url_for("empleado"))
 
 
 if __name__ == "__main__":

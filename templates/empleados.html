@@ -1,68 +1,34 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles/style.css')}}">
-    <link rel="icon" href="/static/img/man2.png" type="image/x-icon">
-    <title>MRMS</title>
-</head>
-
-<body>
-
-    <nav class="navbar navbar-expand-lg bg-light px-2">
-        <div class="container-fluid">
-            <img src="/static/img/man2.png" alt="Bootstrap" width="50" height="44">
-
-        </div>
-        <div class="collapse navbar-collapse m-2" id="navbarSupportedContent">
-
-        </div>
-
-    </nav>
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            {% for card in palets if card.3 != "none" %}
-            <div class="col-md-4 mt-5">
-                <a href="/empleado/{{card.0}}" style="text-decoration: none; color: black;">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-
-
-                                <h5 class="card-title">{{ card.1 }}</h5>
-                                <h5 class="card-subtitle mb-2 text-muted h6">Entregado: 0 / {{ card.3}}</h5>
-                            </div>
-                            <p class="card-text">Contacto : {{ card.2 }}</p>
-                        </div>
-
-
-
-                    </div>
-                </a>
+{% block content %}
+<main class="d-flex px-2 py-4 vh-100 vw-100 rounded-top-5 bg-light">
+    <div class="container-fluid">
+        <div class="container d-flex justify-content-between align-content-center">
+            <div>
+                <h4 class="text-dark m-2">Conductor:</h>
             </div>
-            {% endfor %}
-        </div>
-        <div class="navbar fixed-bottom">
-            <div class="container d-flex justify-content-center">
-                <form action="/logout" method="POST">
-                    <button type="submit" class="btn btn-danger btn-sm">Cerrar sesion</button>
-                </form>
+            <div class="card rounded-5 d-flex justify-content-center align-items-center bg-user shadow mb-4 m-2 w-75 ">
+                <h5 class="text-dark m-auto">{{user}}</h5>
             </div>
+
+        </div>
+
+        <div class="row row-cols-2 gap-0">
+            <a href="/recoger" style="text-decoration: none;">
+                <div class="col card d-flex justify-content-center align-items-center shadow p-3">
+                    <img src="/static/img/delivery.png" class="card-img-top w-25" alt="entregas">
+                    <p>Recoger</p>
+                </div>
+            </a>
+            <a href="/entregar" style="text-decoration: none;">
+                <div class="col card d-flex justify-content-center align-items-center shadow p-3">
+                    <img src="/static/img/info.png" class="card-img-top w-25" alt="entregas">
+                    <p>Entregar</p>
+                </div>
+            </a>
+
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
-        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
-        crossorigin="anonymous"></script>
-</body>
+</main>
 
-</html>
+{% endblock %}
