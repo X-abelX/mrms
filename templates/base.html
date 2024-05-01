@@ -22,7 +22,7 @@
 </head>
 
 <body class="bg-dark">
-    <nav class="navbar navbar-expand-lg  px-4 py-4 row">
+    <nav class="navbar navbar-expand-lg  px-4 py-4 row ">
         <div class="col-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
             aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
             <img src="/static/img/menu-h.png" alt="Bootstrap" width="35">
@@ -40,30 +40,33 @@
     </nav>
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-        <div class="bg-body-secondary p-4 d-flex flex-column justify-content-between align-items-end">
-            <button type="button" class="btn-close align-content-end" data-bs-dismiss="offcanvas"
+        <div class="bg-dark p-4 d-flex flex-column justify-content-between align-items-end">
+            <button type="button" class="btn-close btn-close-white align-content-end" data-bs-dismiss="offcanvas"
                 aria-label="Close"></button>
         </div>
-        <div class="bg-body-secondary p-4 d-flex flex-column h-100 justify-content-evenly align-items-center">
+        <div class="bg-dark p-4 d-flex flex-column h-100 justify-content-evenly align-items-center">
             <div>
-                <img src="/static/img/logo_completo_sin_fondo_1.png" alt="Bootstrap" width="280">
+                <img src="/static/img/logo_completo_sin_fondo_2.png" alt="Bootstrap" width="230">
 
             </div>
 
-            <div>
-                <a href="/empleado" class="nav-link">
-                    <h2 class="fw-bold">Home</h2>
+            <div class="list-group w-100">
+                <a href="/empleado"
+                    class="text-center text-white list-group-item list-group-item-action list-group-item-dark mb-4 bg-dark rounded border-2">
+                    <h2 class=" fw-bold">Inicio</h2>
                 </a>
-                <a href="/recoger" class="nav-link">
-                    <h2 class="fw-bold">Recoger</h2>
+                <a href="/recoger"
+                    class=" text-center text-white list-group-item list-group-item-action list-group-item-dark mb-4 bg-dark rounded border-2">
+                    <h2 class=" fw-bold">Recogidas</h2>
                 </a>
-                <a href="/entregar" class="nav-link">
-                    <h2 class="fw-bold">Entregar</h2>
+                <a href="/entregar"
+                    class="text-center text-white list-group-item list-group-item-action list-group-item-dark mb-4 bg-dark rounded border-2">
+                    <h2 class="fw-bold">Entregas</h2>
                 </a>
             </div>
 
             <form action="/logout" method="POST">
-                <button type="submit" class="btn btn-danger btn-sm">Cerrar sesion</button>
+                <button type="submit" class="btn btn-danger w-100">Cerrar sesion</button>
             </form>
         </div>
 

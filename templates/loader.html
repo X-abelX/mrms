@@ -17,21 +17,30 @@
     <title>Login</title>
     <style>
         body {
-            background: rgb(121, 3, 208);
-            background: linear-gradient(120deg, rgba(121, 3, 208, 1) 35%, rgba(7, 3, 121, 1) 91%);
+            background-color: #232323;
+            /* background: linear-gradient(120deg, rgba(121, 3, 208, 1) 35%, rgba(7, 3, 121, 1) 91%); */
         }
     </style>
 </head>
 
-<body class="bg-body min-vh-100">
+<body class="min-vh-100">
 
     <section class="d-flex justify-content-center align-items-center min-vh-100">
 
-        <div class="m-auto">
-            <img src="/static/img/logo-blanco-sin-fondo.png" alt="Bootstrap" width="180" />
+        <div id="loader">
+            <img src="/static/img/logo_completo_sin_fondo_2.png" alt="Bootstrap" width="290" />
+
         </div>
 
     </section>
+    <script>
+        window.onload = function () {
+            setTimeout(function () {
+                document.getElementById('loader').style.display = 'none';
+                window.location.href = '/login'; // Reemplaza con la URL de tu ruta de login
+            }, 3000); // Ajusta el tiempo de espera (en milisegundos)
+        };
+    </script>
     <!-- Optional JavaScript -->
     <!-- Popper.js first, then Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"

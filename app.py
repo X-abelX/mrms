@@ -25,8 +25,7 @@ mysql = MySQL(app)
 
 @app.route("/")
 def index():
-
-    return render_template("login.html")
+    return render_template("loader.html")
 
 
 @app.route("/authError")
@@ -72,6 +71,14 @@ def entregas():
         con = mysql.connection.cursor()
 
         return render_template("entregar.html", data=data)
+    else:
+        return redirect(url_for("authError"))
+
+
+@app.route("/recoger")
+def recogidas():
+    if "username" in session and session["role"] == "empleado":
+        return render_template("recoger.html")
     else:
         return redirect(url_for("authError"))
 
