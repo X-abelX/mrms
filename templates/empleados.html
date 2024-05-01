@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-<main class="d-flex px-2 py-4 vh-100 vw-100 rounded-top-5 bg-light">
-    <div class="container-fluid">
+<main class="d-flex px-2 py-4 vh-100 vw-100rounded-top-5 bg-light">
+    <div class="container-fluid px-5">
         <div class="container d-flex justify-content-between align-content-center">
             <div>
                 <h4 class="text-dark m-2">Conductor:</h>
@@ -13,16 +13,16 @@
 
         </div>
 
-        <div class="row row-cols-2 gap-0">
+        <div class="row row-cols-1 gap-3">
             <a href="/recoger" style="text-decoration: none;">
-                <div class="col card d-flex justify-content-center align-items-center shadow px-3 py-5">
-                    <img src="/static/img/delivery.png" class="card-img-top w-25" alt="entregas">
+                <div class="col card d-flex justify-content-center align-items-center shadow px-1 py-5 rounded-4">
+                    <img src="/static/img/loading-palets.png" class="card-img-top w-50" alt="recogidas">
                     <p>Recogidas</p>
                 </div>
             </a>
             <a href="/entregar" style="text-decoration: none;">
-                <div class="col card d-flex justify-content-center align-items-center shadow px-3 py-5">
-                    <img src="/static/img/delivery2.png" class="card-img-top w-25" alt="entregas">
+                <div class="col card d-flex justify-content-center align-items-center shadow px-1 py-3 rounded-4">
+                    <img src="/static/img/carga_palets.png" class="card-img-top w-50" alt="entregas">
                     <p>Entregas</p>
                 </div>
             </a>

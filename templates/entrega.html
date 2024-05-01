@@ -88,6 +88,39 @@
                 </div>
             </div>
         </div>
+        <div class="card mb-4 shadow">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-2 p-1 bg-body-secondary rounded d-flex justify-content-center align-items-center">
+                        <img src="/static/img/notes.png" alt="check" style="width: 30px;">
+                    </div>
+                    <div class="col-10">
+                        <h6 class="fs-6 fw-semibold">Firma</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-column justify-content-start">
+                    <div class="mb-2 w-100">
+                        <form action="/guardar_firma" method="POST">
+
+                            <canvas id="firmaCanvas" width="300" height="200" style="border: 1px solid black;"
+                                name="firma"></canvas><br><br>
+                            <input type="hidden" id="firmaInput" name="firma">
+                            <div class="btn-group w-100 gap-1">
+                                <button type="button" class="btn btn-danger" onclick="limpiarFirma()">Limpiar
+                                    Firma</button><br><br>
+                                <button type="submit" class="btn btn-primary">Guardar Firma</button>
+                            </div>
+                        </form>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
 
         <button type="submit" class="btn btn-success w-100">Entregar</button>
         <a href="/entregar">
@@ -96,6 +129,47 @@
 
     </div>
 </main>
+
+<script>
+    let canvas2 = document.getElementById('firmaCanvas');
+    let ctx = canvas2.getContext('2d');
+    let firmaActiva = false;
+    let lastX, lastY;
+
+    canvas2.addEventListener('mousedown', function (e) {
+        firmaActiva = true;
+        lastX = e.offsetX;
+        lastY = e.offsetY;
+    });
+
+    canvas2.addEventListener('mousemove', function (e) {
+        if (firmaActiva) {
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            lastX = e.offsetX;
+            lastY = e.offsetY;
+        }
+    });
+
+    canvas2.addEventListener('mouseup', function () {
+        firmaActiva = false;
+        guardarFirma();
+    });
+
+    function limpiarFirma() {
+        ctx.clearRect(0, 0, canvas2.width, canvas2.height);
+        document.getElementById('firmaInput').value = ''; // Limpiar el campo oculto al limpiar la firma
+    }
+
+    function guardarFirma() {
+        let firmaData = canvas2.toDataURL('image/png');
+        document.getElementById('firmaInput').value = firmaData;
+    }
+</script>
 
 
 
