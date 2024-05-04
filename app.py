@@ -25,6 +25,11 @@ mysql = MySQL(app)
 
 @app.route("/")
 def index():
+    return render_template("index.html")
+
+
+@app.route("/app")
+def main_app():
     return render_template("loader.html")
 
 
@@ -35,11 +40,12 @@ def authError():
 
 @app.route("/home")
 def home():
-    if "username" in session and session["role"] == "admin":
+    if "username" in session and session["role"] == "empresa":
         conn = mysql.connection.cursor()
         conn.execute("SELECT * FROM palets")
         data = conn.fetchall()
-        return render_template("home.html", data=data)
+        user = session["username"]
+        return render_template("home.html", data=data, user=user)
     else:
         return redirect(url_for("authError"))
 
@@ -53,7 +59,8 @@ def admin():
         con = mysql.connection.cursor()
         con.execute('SELECT * FROM users WHERE rol = "empleado"')
         dataempl = con.fetchall()
-        return render_template("admin.html", data=data, dataempl=dataempl)
+        user = session["username"]
+        return render_template("admin.html", data=data, dataempl=dataempl, user=user)
     else:
         return redirect(url_for("authError"))
 
@@ -130,12 +137,12 @@ def entrega_completa(albaran):
 def guardar_firma():
     firma_base64 = request.form[
         "firma"
-    ]  # Obtener la firma en base64 desde el formulario
+    ]  # Obtener la firma en base64 desde el formulario y guardarla en el disco
 
-    # Decodificar la firma desde base64 y guardarla como archivo PNG
-    with open(f"firma_{uuid.uuid4()}.png", "wb") as f:
-        f.write(base64.b64decode(firma_base64.split(",")[1]))
-    # falta guardar la firma en el disco C
+    img_data = base64.b64decode(firma_base64.split(",")[1])
+    signature_filename = f"firma_{uuid.uuid4()}.png"
+    with open(os.path.join("C:/imgmrms/firmas", signature_filename), "wb") as f:
+        f.write(img_data)
     return redirect(url_for("empleado"))
 
 
@@ -227,11 +234,11 @@ def add_employed():
     if request.method == "POST":
         nombre = request.form["nombre"]
         contacto = request.form["contacto"]
-        correo = request.form["correo"]
+        password = request.form["password"]
         conn = mysql.connection.cursor()
         conn.execute(
-            "INSERT INTO users (rol, nombre, correo, contacto) VALUES (%s, %s, %s, %s)",
-            ("empleado", nombre, correo, contacto),
+            "INSERT INTO users (rol, nombre, contacto, password) VALUES (%s, %s, %s, %s)",
+            ("empleado", nombre, contacto, password),
         )
         mysql.connection.commit()
         return redirect(url_for("admin"))
@@ -239,7 +246,20 @@ def add_employed():
 
 @app.route("/add_company", methods=["POST"])
 def add_company():
-    print(request.form)
+    # añadir empresa a la BD
+    if request.method == "POST":
+        nombre = request.form["nombre"]
+        contacto = request.form["contacto"]
+        correo = request.form["correo"]
+        password = request.form["password"]
+        cif = request.form["cif"]
+        conn = mysql.connection.cursor()
+        conn.execute(
+            "INSERT INTO users (rol, nombre, contacto, correo, password, cif) VALUES (%s, %s, %s, %s,%s, %s)",
+            ("empresa", nombre, contacto, correo, password, cif),
+        )
+        mysql.connection.commit()
+        return redirect(url_for("admin"))
 
 
 @app.route("/assign_employed", methods=["POST"])

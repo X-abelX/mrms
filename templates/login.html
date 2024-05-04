@@ -19,6 +19,7 @@
     .form-bg {
       background: rgb(121, 3, 208);
       background: linear-gradient(120deg, rgba(121, 3, 208, 1) 35%, rgba(7, 3, 121, 1) 91%);
+
     }
   </style>
 </head>
@@ -32,7 +33,8 @@
     </div>
 
     <div class="row g-0 d-flex justify-content-center rounded-5">
-      <div class="form-bg col-lg-5 d-flex flex-column align-items-end rounded-top-5 vh-100">
+      <div
+        class="form-bg col-lg-5 d-flex flex-column align-items-end shadow  rounded-top-5 rounded-start-sm-5 rounded-end-sm-0">
 
         <div class="align-self-center w-100 px-lg-5 py-lg-4 p-4">
           <h1 class="fw-bold mb-4 text-light text-center">Panel De Accesos</h1>
@@ -41,12 +43,12 @@
           {% endif %}
           <form class="mb-2" action="/login" method="POST">
             <div class="mb-4">
-              <label for="exampleInputEmail1" class="form-label font-weight-bold text-light">Usuario</label>
+              <label for="correo" class="form-label font-weight-bold text-light">Usuario</label>
               <input name="correo" type="text" class="form-control bg-light border-0 text-dark" id="exampleInputEmail1"
                 placeholder="Ingresa Usuario" aria-describedby="emailHelp">
             </div>
             <div class="mb-4">
-              <label for="exampleInputPassword1" class="form-label font-weight-bold text-light">Contraseña</label>
+              <label for="pass" class="form-label font-weight-bold text-light">Contraseña</label>
               <input name="pass" type="password" class="form-control bg-light border-0 mb-2 text-dark"
                 placeholder="Ingresa tu contraseña" id="exampleInputPassword1">
 
