@@ -289,8 +289,13 @@ def data_entrega(albaran):
     conn.execute("SELECT * FROM palets WHERE albaran = %s ", (albaran,))
     data = conn.fetchone()
     user = session["username"]
+    images = data[13].split(",")
     return render_template(
-        "detail_admin_entrega.html", data=data, albaran=albaran, user=user
+        "detail_admin_entrega.html",
+        data=data,
+        albaran=albaran,
+        user=user,
+        images=images,
     )
 
 

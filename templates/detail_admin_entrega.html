@@ -100,8 +100,14 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="d-flex flex-column justify-content-start">
-                <img src="{{data.13}}" alt="">
+            <div class="row row-cols-lg-4 row-cols-sm-1 ">
+                {% for src in images %}
+                <div class=" col ">
+
+                    <img src="C:/imgmrms/{{src}}" alt="{{src}}" width="250px" class="w-100 mb-2 rounded-2">
+                </div>
+                {% endfor %}
+
             </div>
         </div>
 
