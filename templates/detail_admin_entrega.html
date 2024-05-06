@@ -1,0 +1,142 @@
+{% extends "base_empresa.html" %}
+{% block content %}
+<main class="container p-4  rounded-top-5 bg-light vh-100 overflow-scroll">
+
+    <!--Card -->
+
+    <div class="card mb-4 shadow">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-2 p-1 bg-body-secondary rounded d-flex justify-content-center align-items-center">
+                    <img src="/static/img/gps.png" alt="gps" style="width: 20px;">
+                </div>
+                <div class="col-10">
+                    <h6 class="fs-6 fw-semibold">Dirección de entrega</h6>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="d-flex flex-column justify-content-start">
+                <h5 class="card-subtitle mb-2 text-muted">Direccion: {{data.3}}</h5>
+
+            </div>
+        </div>
+    </div>
+    <div class="card mb-4 shadow">
+        <div class="card-header ">
+            <div class="row">
+                <div class="col-2 p-1 bg-body-secondary rounded d-flex justify-content-center align-items-center">
+                    <img src="/static/img/contact.png" alt="gps" style="width: 20px;">
+                </div>
+                <div class="col-8">
+                    <h6 class="fs-6 fw-semibold">Contacto de entrega</h6>
+                </div>
+                <div class="col-2">
+                    <a href="tel:{{data.2}}">
+                        <img src="/static/img/phone.png" alt="gps" style="width: 30px;">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="d-flex flex-column justify-content-start">
+
+                <h6 class="card-subtitle mb-2 text-muted">{{data.2}}</h6>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="card mb-4 shadow">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-2 p-1 bg-body-secondary rounded d-flex justify-content-center align-items-center">
+                    <img src="/static/img/info.png" alt="info" style="width: 30px;">
+                </div>
+                <div class="col-10">
+                    <h6 class="fs-6 fw-semibold">Informacion de envio</h6>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="d-flex flex-column justify-content-start">
+                <h6 class="card-subtitle mb-2 text-muted">Nº de id: {{data.0}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Fecha de entrega: {{data.4}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Peso: {{data.6}}Kg.</h6>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-4 shadow">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-2 p-1 bg-body-secondary rounded d-flex justify-content-center align-items-center">
+                    <img src="/static/img/info.png" alt="info" style="width: 30px;">
+                </div>
+                <div class="col-10">
+                    <h6 class="fs-6 fw-semibold">Opciones</h6>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="d-flex flex-column justify-content-start">
+                {% if data.9 == 1 %}
+                <h5 class="card_subtitle mb-2 text-muted">Despaletizado: Si</h5>
+                {% else %}
+                <h5 class="card_subtitle mb-2 text-muted">Despaletizado: No</h5>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+    <div class="card mb-4 shadow">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-2 p-1 bg-body-secondary rounded d-flex justify-content-center align-items-center">
+                    <img src="/static/img/info.png" alt="info" style="width: 30px;">
+                </div>
+                <div class="col-10">
+                    <h6 class="fs-6 fw-semibold">Imagenes</h6>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="d-flex flex-column justify-content-start">
+                <img src="{{data.13}}" alt="">
+            </div>
+        </div>
+
+
+    </div>
+    <div class="card mb-4 shadow">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-2 p-1 bg-body-secondary rounded d-flex justify-content-center align-items-center">
+                    <img src="/static/img/info.png" alt="info" style="width: 30px;">
+                </div>
+                <div class="col-10">
+                    <h6 class="fs-6 fw-semibold">Recibio</h6>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="d-flex flex-column justify-content-start">
+                <h5 class="card_subtitle mb-2 text-muted">Nombre: {{data.14}}</h5>
+                <h5 class="card_subtitle mb-2 text-muted">DNI: {{data.15}}</h5>
+
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+
+    </div>
+
+
+    </div>
+
+
+
+</main>
+
+{% endblock %}

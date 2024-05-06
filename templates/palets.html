@@ -1,0 +1,144 @@
+{% extends "base_empresa.html" %}
+{% block content %}
+<h2 class="d-flex justify-content-center">Entregados</h2>
+<div class="row ">
+    {% for row in data if row.12 == 1 %}
+    <div class="col-md-4 col-sm-6 mb-3 mb-sm-0">
+        <div class="card shadow m-3 bg-success-subtle">
+            <a href="/data_entrega/{{ row.1 }}" class="text-decoration-none text-black">
+                <div class="card-body">
+                    <h5 class="card-title">Albaran: {{ row.1 }}</h5>
+                    <h6 class="card-text text-body-secondary">Fecha entrega: {{ row.4 }}</h6>
+                    <p class="card-text">Peso: {{ row.6 }}Kg.</p>
+                    {% if row.8 != "" %}
+                    <p class="card-text">Nota: {{ row.8 }}</p>
+
+                    {% endif %}
+                </div>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<h2 class="d-flex justify-content-center">Pendientes</h2>
+<div class="row">
+
+    {% for row in data if row.12 != 1 %}
+    <div class="col-md-4 col-sm-6 mb-3 mb-sm-0">
+        <div class="card shadow m-3 bg-warning-subtle">
+            <a href="#" class="text-decoration-none text-black">
+                <div class="card-body">
+                    <h5 class="card-title">Albaran: {{ row.1 }}</h5>
+                    <h6 class="card-text text-body-secondary">Fecha entrega: {{ row.4 }}</h6>
+                    <p class="card-text">Peso: {{ row.6 }}Kg.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+<div class="modal" tabindex="-1" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Añadir Palet</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form action="/add_palet" method="POST">
+                    <label for="id" class="form-label">Identificador</label>
+                    <input name="id" class="form-control" type="text" placeholder="000-000"
+                        aria-label="default input example">
+
+                    <label for="contacto" class="form-label">Contacto</label>
+                    <input name="contacto" class="form-control" type="text" placeholder="654435132"
+                        aria-label="default input example">
+
+                    <label for="direccion" class="form-label">Direccion</label>
+                    <input name="direccion" class="form-control" type="text" placeholder="calle San Isidro 27"
+                        aria-label="default input example">
+
+                    <label for="fecha_entrega" class="form-label">Fecha de entrega</label>
+                    <input name="fecha_entrega" class="form-control" type="date" aria-label="default input example">
+
+                    <label for="palets" class="form-label">Nº Palets</label>
+                    <input name="palets" class="form-control" value="1" type="number"
+                        aria-label="default input example">
+
+                    <label for="peso" class="form-label">Peso</label>
+                    <input name="peso" class="form-control" type="number" placeholder="500"
+                        aria-label="default input example">
+
+                    <label for="tipo_palet" class="form-label">Seleccionar tipo de palet</label>
+                    <select name="tipo_palet" class="form-select" aria-label="Default select example">
+                        <option value="1">Mini</option>
+                        <option value="2">Americano</option>
+                        <option value="3">Europeo</option>
+                        <option value="4">Especial</option>
+                    </select>
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Añadir Nota</label>
+                        <textarea name="nota" class="form-control" id="exampleFormControlTextarea1" rows="3"
+                            placeholder="Algo Aqui..."></textarea>
+                    </div>
+
+                    <div class="form-check mt-2">
+                        <input name="despaletizado" class="form-check-input" type="checkbox" value="1"
+                            id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Despaletizado
+                        </label>
+                    </div>
+                    <div class=" mt-2">
+                        <label for="action" class="form-label">Seleccionar accion</label>
+                        <select name="action" class="form-select" aria-label="Default select example">
+                            <option value="1">Entrega</option>
+                            <option value="2">Recogida</option>
+                        </select>
+                    </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Añadir</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function filterTable() {
+        var input, filter, tables, tr, td, i, j, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+
+        tables = document.querySelectorAll('#col');
+
+        for (j = 0; j < tables.length; j++) {
+            tables[j].style.display = "none"; // Hide all tables
+            tr = tables[j].getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.trim().toUpperCase() === filter.trim()) {  // Match exact identifier
+                        tables[j].style.display = ""; // Show table
+                        tr[i].style.display = ""; // Show matching row
+                    } else {
+                        tr[i].style.display = "none"; // Hide non-matching row
+                    }
+                }
+            }
+        }
+    }    
+</script>
+
+
+
+{% endblock %}

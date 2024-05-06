@@ -1,0 +1,29 @@
+{% extends "base_admin.html" %}
+{% block content %}
+<h2>Data Empresas</h2>
+<div class="row">
+    {% for row in data %}
+    <div class="col-md-4 col-sm-6">
+        <div class="card mb-4 shadow">
+            <div class="card-header">
+                <div class="d-flex  align-items-center">
+                    <div class=" p-2 bg-body-secondary rounded d-flex justify-content-center align-items-center">
+                        <img src="/static/img/box.png" alt="gps" style="width: 20px;">
+                    </div>
+                    <h3 class="mx-3">{{row.2}}</h3>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-column justify-content-start">
+
+                    <h6 class="card-title text-muted">Correo: {{ row.4 }}</h6>
+                    <h6 class="card-title text-muted">Contacto: {{ row.3 }}</h6>
+                    <h6 class="card-title text-muted">Creado el: {{ row.7 }}</h6>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

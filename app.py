@@ -50,6 +50,18 @@ def home():
         return redirect(url_for("authError"))
 
 
+@app.route("/home/data_palets")
+def palets():
+    if "username" in session and session["role"] == "empresa":
+        conn = mysql.connection.cursor()
+        conn.execute("SELECT * FROM palets")
+        data = conn.fetchall()
+        user = session["username"]
+        return render_template("palets.html", data=data, user=user)
+    else:
+        return redirect(url_for("authError"))
+
+
 @app.route("/admin")
 def admin():
     if "username" in session and session["role"] == "admin":
@@ -260,6 +272,26 @@ def add_company():
         )
         mysql.connection.commit()
         return redirect(url_for("admin"))
+
+
+@app.route("/data_companys")
+def data_companys():
+    conn = mysql.connection.cursor()
+    conn.execute("SELECT * FROM users WHERE rol = 'empresa'")
+    data = conn.fetchall()
+    user = session["username"]
+    return render_template("data_empresas.html", data=data, user=user)
+
+
+@app.route("/data_entrega/<string:albaran>")
+def data_entrega(albaran):
+    conn = mysql.connection.cursor()
+    conn.execute("SELECT * FROM palets WHERE albaran = %s ", (albaran,))
+    data = conn.fetchone()
+    user = session["username"]
+    return render_template(
+        "detail_admin_entrega.html", data=data, albaran=albaran, user=user
+    )
 
 
 @app.route("/assign_employed", methods=["POST"])

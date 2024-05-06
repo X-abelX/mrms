@@ -16,10 +16,17 @@
 
     <div class="container-fluid">
         <div class="row flex-nowrap ">
-            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark align-items-center shadow-lg">
+            <div id="navbarToggleExternalContent"
+                class="collapse d-sm-none d-md-block col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark align-items-center shadow-lg offcanvas-md offcanvas-start">
+                <button class="d-lg-none navbar-toggler position-absolute end-0 text-white m-3" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent"
+                    aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                    X
+                </button>
                 <div
                     class="d-flex flex-column justify-content-between align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                     <div class="d-flex flex-column align-items-center py-2">
+
                         <img src="/static/img/logo_completo_sin_fondo_2.png" alt="Bootstrap" width="120" height="80"
                             class="mx-auto">
                         <form class="d-flex flex-column mt-4 mb-4" role="search">
@@ -35,7 +42,7 @@
                                 </button>
                                 <ul class="dropdown-menu">
 
-                                    <li><a class="dropdown-item" href="#">Datos Empresas</a></li>
+                                    <li><a class="dropdown-item" href="/data_companys">Datos Empresas</a></li>
                                     <li><a class="dropdown-item" href="#">Datos Palets</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
@@ -71,11 +78,88 @@
                 </div>
             </div>
             <div class="col py-3">
+
+                <button class=" d-lg-none d-md-block navbar-toggler " type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <img src="/static/img/menu-icon.png" alt="menu" width="35">
+                </button>
+
                 {% block content %}{% endblock %}
 
             </div>
         </div>
     </div>
+
+    <!--Modal-->
+
+    <div class="modal" tabindex="-1" id="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Añadir Empleado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form action="/add_employed" method="POST">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input name="nombre" class="form-control" type="text" placeholder="Abel Rosero"
+                            aria-label="default input example">
+
+                        <label for="contacto" class="form-label">Contacto</label>
+                        <input name="contacto" class="form-control" type="text" placeholder="654435132"
+                            aria-label="default input example">
+
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input name="password" class="form-control" type="text" placeholder="Contraseña"
+                            aria-label="default input example">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Añadir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" id="otro">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Añadir Empresa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form action="/add_company" method="POST">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input name="nombre" class="form-control" type="text" placeholder="Nombre"
+                            aria-label="default input example">
+
+                        <label for="contacto" class="form-label">Contacto</label>
+                        <input name="contacto" class="form-control" type="text" placeholder="654435132"
+                            aria-label="default input example">
+                        <label for="correo" class="form-label">Correo</label>
+                        <input name="correo" class="form-control" type="text" placeholder="ejemplo@gmail.com"
+                            aria-label="default input example">
+                        <label for="cif" class="form-label">CIF</label>
+                        <input name="cif" class="form-control" type="text" placeholder="CIF"
+                            aria-label="default input example">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input name="password" class="form-control" type="text" placeholder="contraseña"
+                            aria-label="default input example">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Añadir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function filterTable() {
             var input, filter, tables, tr, td, i, j, txtValue;
