@@ -62,6 +62,18 @@ def palets():
         return redirect(url_for("authError"))
 
 
+@app.route("/admin/data_palets")
+def palets_admin():
+    if "username" in session and session["role"] == "admin":
+        conn = mysql.connection.cursor()
+        conn.execute("SELECT * FROM palets")
+        data = conn.fetchall()
+        user = session["username"]
+        return render_template("palets_admin.html", data=data, user=user)
+    else:
+        return redirect(url_for("authError"))
+
+
 @app.route("/admin")
 def admin():
     if "username" in session and session["role"] == "admin":

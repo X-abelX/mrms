@@ -16,15 +16,15 @@
 
     <div class="container-fluid">
         <div class="row flex-nowrap ">
-            <div id="navbarToggleExternalContent"
-                class="collapse d-sm-none d-md-block col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark align-items-center shadow-lg offcanvas-md offcanvas-start">
+            <div id="navbarAdmin"
+                class="collapse  d-md-block col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark align-items-center shadow-lg offcanvas-md offcanvas-start ">
                 <button class="d-lg-none navbar-toggler position-absolute end-0 text-white m-3" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent"
-                    aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                    data-bs-toggle="collapse" data-bs-target="#navbarAdmin" aria-controls="navbarToggleExternalContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                     X
                 </button>
                 <div
-                    class="d-flex flex-column justify-content-between align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    class="d-flex flex-column justify-content-between align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100 ">
                     <div class="d-flex flex-column align-items-center py-2">
 
                         <img src="/static/img/logo_completo_sin_fondo_2.png" alt="Bootstrap" width="120" height="80"
@@ -41,9 +41,9 @@
                                     Acciones
                                 </button>
                                 <ul class="dropdown-menu">
-
+                                    <li><a class="dropdown-item" href="/admin">Panel principal</a></li>
                                     <li><a class="dropdown-item" href="/data_companys">Datos Empresas</a></li>
-                                    <li><a class="dropdown-item" href="#">Datos Palets</a></li>
+                                    <li><a class="dropdown-item" href="/admin/data_palets">Datos Palets</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
@@ -80,8 +80,8 @@
             <div class="col py-3">
 
                 <button class=" d-lg-none d-md-block navbar-toggler " type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                    data-bs-target="#navbarAdmin" aria-controls="navbarAdmin" aria-expanded="false"
+                    aria-label="Toggle navigation">
                     <img src="/static/img/menu-icon.png" alt="menu" width="35">
                 </button>
 
