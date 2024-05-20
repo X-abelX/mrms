@@ -276,11 +276,12 @@ def add_company():
         contacto = request.form["contacto"]
         correo = request.form["correo"]
         password = request.form["password"]
+        direccion = request.form["direccion"]
         cif = request.form["cif"]
         conn = mysql.connection.cursor()
         conn.execute(
-            "INSERT INTO users (rol, nombre, contacto, correo, password, cif) VALUES (%s, %s, %s, %s,%s, %s)",
-            ("empresa", nombre, contacto, correo, password, cif),
+            "INSERT INTO users (rol, nombre, contacto, correo, password, cif, direccion) VALUES (%s, %s, %s, %s,%s, %s, %s)",
+            ("empresa", nombre, contacto, correo, password, cif, direccion),
         )
         mysql.connection.commit()
         return redirect(url_for("admin"))
