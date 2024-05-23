@@ -296,7 +296,7 @@ def data_companys():
     return render_template("data_empresas.html", data=data, user=user)
 
 
-@app.route("/data_entrega/<string:albaran>")
+@app.route("/detail_entrega/<string:albaran>")
 def data_entrega(albaran):
     conn = mysql.connection.cursor()
     conn.execute("SELECT * FROM palets WHERE albaran = %s ", (albaran,))
@@ -304,7 +304,7 @@ def data_entrega(albaran):
     user = session["username"]
     images = data[13].split(",")
     return render_template(
-        "detail_admin_entrega.html",
+        "data_entrega_empresa.html",
         data=data,
         albaran=albaran,
         user=user,
