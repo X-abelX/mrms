@@ -157,15 +157,17 @@ def entrega_completa(albaran):
 
 
 # ruta paraguardar la firma
-@app.route("/guardar_firma", methods=["POST"])
-def guardar_firma():
+@app.route("/guardar_firma/<string:albaran>", methods=["POST"])
+def guardar_firma(albaran):
     firma_base64 = request.form[
         "firma"
     ]  # Obtener la firma en base64 desde el formulario y guardarla en el disco
 
     img_data = base64.b64decode(firma_base64.split(",")[1])
     signature_filename = f"firma_{uuid.uuid4()}.png"
-    with open(os.path.join("C:/imgmrms/firmas", signature_filename), "wb") as f:
+    with open(
+        os.path.join(f"C:/imgmrms/firmas/{albaran}/", signature_filename), "wb"
+    ) as f:
         f.write(img_data)
     return redirect(url_for("empleado"))
 
