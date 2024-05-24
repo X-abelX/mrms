@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row d-flex justify-content-center">
             <h2 class="text-dark mb-4 text-center">Entregas pendientes</h2>
-            {% for card in data %}
+            {% for card in data if card.10 == 'entrega' %}
             <a href="/empleado/{{ card.1 }}" style="text-decoration:none;color: black;">
                 <div class="card mb-4 shadow">
                     <div class="card-header">
