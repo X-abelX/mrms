@@ -94,7 +94,6 @@ def entregas():
 
     if "username" in session and session["role"] == "empleado":
         id_empleado = str(session["userId"])
-        print(id_empleado)
         conn = mysql.connection.cursor()
         conn.execute("SELECT * FROM palets WHERE empleado = %s", id_empleado)
         data = conn.fetchall()
@@ -109,7 +108,14 @@ def entregas():
 @app.route("/recoger")
 def recogidas():
     if "username" in session and session["role"] == "empleado":
-        return render_template("recoger.html")
+        id_empleado = str(session["userId"])
+        conn = mysql.connection.cursor()
+        conn.execute("SELECT * FROM palets WHERE empleado = %s", id_empleado)
+        data = conn.fetchall()
+
+        con = mysql.connection.cursor()
+
+        return render_template("recoger.html", data=data)
     else:
         return redirect(url_for("authError"))
 
