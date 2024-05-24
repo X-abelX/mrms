@@ -184,9 +184,12 @@ def add_palet():
         tipo_palet = request.form["tipo_palet"]
         nota = request.form["nota"]
         despaletizado = request.form.get("despaletizado", False)
+        servicio = request.form.get("servicio")
+        dir_recogida = request.form.get("dir_recogida")
+        zona = request.form.get("zona")
         conn = mysql.connection.cursor()
         conn.execute(
-            "INSERT INTO palets (albaran, contacto, direccion, fecha_entrega, numpalets, peso, tipo_palet, nota, despaletizado) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+            "INSERT INTO palets (albaran, contacto, direccion, fecha_entrega, numpalets, peso, tipo_palet, nota, despaletizado,servicio,zona,direccion_recogida) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s,%s)",
             (
                 id,
                 contacto,
@@ -197,6 +200,9 @@ def add_palet():
                 tipo_palet,
                 nota,
                 despaletizado,
+                servicio,
+                zona,
+                dir_recogida,
             ),
         )
         mysql.connection.commit()

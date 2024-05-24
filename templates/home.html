@@ -110,7 +110,7 @@
           <label for="palets" class="form-label">Nº Palets</label>
           <input name="palets" class="form-control" value="1" type="number" aria-label="default input example">
           <label for="tipo_palet" class="form-label">Seleccionar zona</label>
-          <select name="tipo_palet" class="form-select" aria-label="Default select example">
+          <select name="zona" class="form-select" aria-label="Default select example">
             <option value="1">Zona 1</option>
             <option value="2">Zona 2</option>
             <option value="3">Zona 3</option>
@@ -143,10 +143,13 @@
           </div>
           <div class=" mt-2">
             <label for="action" class="form-label">Seleccionar accion</label>
-            <select name="action" class="form-select" aria-label="Default select example">
-              <option value="1">Entrega</option>
-              <option value="2">Recogida</option>
+            <select name="servicio" class="form-select" aria-label="Default select example" required>
+              <option value="entrega">Entrega</option>
+              <option value="recogida">Recogida</option>
             </select>
+            <label for="direccion" class="form-label mt-2">Direccion recogida</label>
+            <input name="dir_recogida" class="form-control" type="text" placeholder="calle San Isidro 27"
+              aria-label="default input example">
           </div>
 
 
