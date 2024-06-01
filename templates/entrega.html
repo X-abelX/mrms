@@ -37,12 +37,12 @@
                     <div class="d-flex flex-column justify-content-start">
                         <div class="mb-2 w-100">
                             <label for="name" class="form-label ">Nombre</label>
-                            <input name="name" type="text" class="form-control" id="name"
+                            <input name="name" type="text" class="form-control bg-white" id="name"
                                 placeholder="ingrese un nombre" aria-label="default input example">
                         </div>
                         <div class="w-100">
                             <label for="dni" class="form-label">DNI</label>
-                            <input name="dni" type="text" class="form-control" placeholder="DNI"
+                            <input name="dni" type="text" class="form-control bg-white" placeholder="DNI"
                                 aria-label="default input example">
                         </div>
 
@@ -64,7 +64,7 @@
                 <div class="card-body">
                     <div class="d-flex flex-column justify-content-start">
                         <div class="mb-2 w-100">
-                            <textarea class="form-control" placeholder="Agregar notas" name="notas"
+                            <textarea class="form-control bg-white" placeholder="Agregar notas" name="notas"
                                 id="floatingTextarea"></textarea>
 
                         </div>
@@ -105,42 +105,6 @@
                 </div>
             </div>
         </div>
-        <div class="card mb-4 shadow">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-2 p-1 bg-body-secondary rounded d-flex justify-content-center align-items-center">
-                        <img src="/static/img/notes.png" alt="check" style="width: 30px;">
-                    </div>
-                    <div class="col-10">
-                        <h6 class="fs-6 fw-semibold">Firma</h6>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="d-flex flex-column justify-content-start">
-                    <div class="mb-2 w-100">
-                        <form action="/guardar_firma/{{albaran}}" method="POST">
-                            <div id="firmaCanvasContainer">
-
-
-                                <canvas id="firmaCanvas"></canvas>
-                            </div>
-                            <input type="hidden" id="firmaInput" name="firma">
-                            <div class="btn-group w-100 gap-1">
-                                <button type="button" class="btn btn-danger" onclick="limpiarFirma()">Borrar
-                                    Firma</button><br><br>
-                                <button type="submit" class="btn btn-primary">Guardar Firma</button>
-                            </div>
-                        </form>
-
-
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-
         <button type="submit" class="btn btn-success w-100">Entregar</button>
         <a href="/entregar">
             <button class="btn btn-danger w-100 mt-4">Cancelar</button>
