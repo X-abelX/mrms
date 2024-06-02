@@ -146,6 +146,12 @@ def entrega(empleado, albaran):
     return render_template("entrega.html", albaran=albaran)
 
 
+@app.route("/entrega/cam/<string:albaran>")
+def camara_entrega(albaran):
+
+    return render_template("camara.html", albaran=albaran)
+
+
 @app.route("/entrega_completa/<string:albaran>", methods=["POST"])
 def entrega_completa(albaran):
     name = request.form["name"]
@@ -159,22 +165,6 @@ def entrega_completa(albaran):
         (name, dni, nota, entregado, albaran),
     )
     mysql.connection.commit()
-    return redirect(url_for("empleado"))
-
-
-# ruta paraguardar la firma
-@app.route("/guardar_firma/<string:albaran>", methods=["POST"])
-def guardar_firma(albaran):
-    firma_base64 = request.form[
-        "firma"
-    ]  # Obtener la firma en base64 desde el formulario y guardarla en el disco
-
-    img_data = base64.b64decode(firma_base64.split(",")[1])
-    signature_filename = f"firma_{uuid.uuid4()}.png"
-    with open(
-        os.path.join(f"C:/imgmrms/firmas/{albaran}/", signature_filename), "wb"
-    ) as f:
-        f.write(img_data)
     return redirect(url_for("empleado"))
 
 
@@ -192,10 +182,11 @@ def add_palet():
         despaletizado = request.form.get("despaletizado", False)
         servicio = request.form.get("servicio")
         dir_recogida = request.form.get("dir_recogida")
+        contacto_recogida = request.form.get("contacto_recogida")
         zona = request.form.get("zona")
         conn = mysql.connection.cursor()
         conn.execute(
-            "INSERT INTO palets (albaran, contacto, direccion, fecha_entrega, numpalets, peso, tipo_palet, nota, despaletizado,servicio,zona,direccion_recogida) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s,%s)",
+            "INSERT INTO palets (albaran, contacto, direccion, fecha_entrega, numpalets, peso, tipo_palet, nota, despaletizado,servicio,zona,direccion_recogida,contacto_recogida) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s,%s,%s)",
             (
                 id,
                 contacto,
@@ -209,6 +200,7 @@ def add_palet():
                 servicio,
                 zona,
                 dir_recogida,
+                contacto_recogida,
             ),
         )
         mysql.connection.commit()
@@ -225,7 +217,7 @@ def assign_palets():
                 "UPDATE palets SET empresa = %s WHERE id = %s", ("mam", palet_id)
             )
         mysql.connection.commit()
-        return redirect(url_for("home"))
+        return redirect(url_for("admin"))
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -331,15 +323,16 @@ def assign_empolyed():
     if request.method == "POST":
         selected_palets = request.form.getlist("selected_palets")
         employed = request.form.get("employed")
-        print(employed)
         conn = mysql.connection.cursor()
         for palet_id in selected_palets:
+            print(palet_id)
+            print(employed)
             conn.execute(
                 "UPDATE palets SET empleado = %s WHERE id = %s",
-                (str(employed), palet_id),
+                (employed, palet_id),
             )
         mysql.connection.commit()
-        return redirect(url_for("assign_palets"))
+        return redirect(url_for("admin"))
 
 
 @app.route("/img/<filename>")

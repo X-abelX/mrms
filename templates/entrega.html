@@ -1,23 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-<style>
-    #firmaCanvasContainer {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-    }
-
-    #firmaCanvas {
-        max-width: 280px;
-        border: 2px solid #ccc;
-        border-radius: 10px;
-        background-color: antiquewhite;
-        margin-bottom: 1rem;
-    }
-</style>
 <main class="d-flex flex-column justify-content-center align-items-center px-2 vh-100 vw-100 rounded-top-5 bg-light">
     <div class="container p-3 rounded-top-5  vh-100 overflow-scroll">
         <form class="mb-2" action="/entrega_completa/{{albaran}}" method="POST">
@@ -81,11 +63,18 @@
                         <img src="/static/img/images.png" alt="gps" style="width: 30px;">
                     </div>
                     <div class="col-10">
+
                         <h6 class="fs-6 fw-semibold">Adjuntar Imagenes</h6>
+                        <a href="/entrega/cam/{{empleado}}/{{albaran}}" class="text-decoration-none">
+                            <button id="start-camera" class="btn btn-outline-primary  w-100"><img
+                                    src="/static/img/camera.png" alt="camera" style="width: 40px;"></button>
+                            <button id="capture-photo" disabled class="btn btn-success w-100">Capturar
+                                foto</button>
+                        </a>
                     </div>
                 </div>
             </div>
-            <div class="card-body">
+            <!-- <div class="card-body">
                 <div class="d-flex flex-column justify-content-start">
 
                     <div>
@@ -100,67 +89,20 @@
                     </div>
                     <div id="imageSlider" class="mb-2 w-100">
                         <!-- Imágenes tomadas con la cámara web se agregarán aquí -->
-                        <div id="photo-list" class="d-block w-100"></div>
-                    </div>
-                </div>
-            </div>
+            <!-- <div id="photo-list" class="d-block w-100"></div> -->
         </div>
-        <button type="submit" class="btn btn-success w-100">Entregar</button>
-        <a href="/entregar">
-            <button class="btn btn-danger w-100 mt-4">Cancelar</button>
-        </a>
+    </div>
+    </div> -->
+    </div>
+    <button type="submit" class="btn btn-success w-100">Entregar</button>
+    <a href="/entregar">
+        <button class="btn btn-danger w-100 mt-4">Cancelar</button>
+    </a>
 
     </div>
 </main>
 
-<script>
-    let canvas2 = document.getElementById('firmaCanvas');
-    let ctx = canvas2.getContext('2d');
-    let firmaActiva = false;
-    let lastX, lastY;
 
-    // Ajustar el tamaño del canvas al tamaño del viewport del dispositivo
-    canvas2.width = window.innerWidth;
-    canvas2.height = window.innerHeight * 0.5;
-
-    canvas2.addEventListener('touchstart', function (e) {
-        firmaActiva = true;
-        lastX = e.touches[0].clientX - canvas2.offsetLeft;
-        lastY = e.touches[0].clientY - canvas2.offsetTop;
-        e.preventDefault();
-    });
-
-    canvas2.addEventListener('touchmove', function (e) {
-        if (firmaActiva) {
-            let currentX = e.touches[0].clientX - canvas2.offsetLeft;
-            let currentY = e.touches[0].clientY - canvas2.offsetTop;
-            ctx.beginPath();
-            ctx.moveTo(lastX, lastY);
-            ctx.lineTo(currentX, currentY);
-            ctx.strokeStyle = '#000';
-            ctx.lineWidth = 2;
-            ctx.stroke();
-            lastX = currentX;
-            lastY = currentY;
-            e.preventDefault();
-        }
-    });
-
-    canvas2.addEventListener('touchend', function () {
-        firmaActiva = false;
-        guardarFirma();
-    });
-
-    function limpiarFirma() {
-        ctx.clearRect(0, 0, canvas2.width, canvas2.height);
-        document.getElementById('firmaInput').value = '';
-    }
-
-    function guardarFirma() {
-        let firmaData = canvas2.toDataURL('image/png');
-        document.getElementById('firmaInput').value = firmaData;
-    }
-</script>
 
 
 

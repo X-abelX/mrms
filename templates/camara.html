@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+
+<main class="d-flex flex-column justify-content-center align-items-center px-2 vh-100 vw-100 rounded-top-5 bg-light">
+    <div class="d-flex flex-column justify-content-start">
+
+        <div>
+            <video id="camera-stream" autoplay class="h-100 w-100 mt-3" style="display: none; z-index: 1;"></video>
+            <canvas id="photo" width="60" height="40" style="display: none;"></canvas>
+        </div>
+        <div class="d-grid gap-2 d-lg-inline-block d-flex flex-row mt-2 bottom-0">
+            <button id="start-camera" class="btn btn-outline-primary  w-100"><img src="/static/img/camera.png"
+                    alt="camera" style="width: 40px;"></button>
+            <button id="capture-photo" disabled class="btn btn-outline-secondary w-100 z-3"><img
+                    src="/static/img/camera.png" alt="camera" style="width: 40px;"></button>
+        </div>
+        <div id="imageSlider" class="mb-2 w-100">
+            <!-- Imágenes tomadas con la cámara web se agregarán aquí -->
+            <div id="photo-list" class="d-block w-100"></div>
+        </div>
+    </div>
+
+</main>
+
+
+
+
+<script>
+    const video = document.getElementById('camera-stream');
+    const canvas = document.getElementById('photo');
+
+    const startCameraButton = document.getElementById('start-camera');
+    const capturePhotoButton = document.getElementById('capture-photo');
+
+    const photoList = document.getElementById('photo-list');
+
+    capturePhotoButton.style.display = 'none'
+
+
+
+    startCameraButton.addEventListener('click', function () {
+        video.style.display = 'block';
+
+        navigator.mediaDevices.getUserMedia({
+            video: { facingMode: 'environment' }
+        })
+            .then(function (stream) {
+                video.srcObject = stream;
+                capturePhotoButton.disabled = false;
+                startCameraButton.style.display = 'none'
+                capturePhotoButton.style.display = 'block'
+            })
+            .catch(function (error) {
+                console.error('Error accessing media devices.', error);
+            });
+    });
+
+    capturePhotoButton.addEventListener('click', function () {
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+        const imgData = canvas.toDataURL('image/png');
+        const imgContainer = document.createElement('div');
+        imgContainer.classList.add('image-container');
+        const img = document.createElement('img');
+        img.src = imgData;
+        const deleteButton = document.createElement('button');
+        deleteButton.classList.add('delete-button');
+        deleteButton.textContent = 'X';
+        deleteButton.addEventListener('click', function () {
+            photoList.removeChild(imgContainer);
+        });
+        imgContainer.appendChild(img);
+        imgContainer.appendChild(deleteButton);
+        photoList.appendChild(imgContainer);
+        video.srcObject.getTracks().forEach(track => track.stop());
+        video.srcObject = null;
+        startCameraButton.style.display = 'block'
+        capturePhotoButton.style.display = 'none'
+        video.style.display = 'none';
+
+
+    });
+
+
+</script>
+
+{% endblock %}
