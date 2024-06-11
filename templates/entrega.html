@@ -74,6 +74,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- <div class="card-body">
                 <div class="d-flex flex-column justify-content-start">
 
@@ -154,8 +155,8 @@
         imgContainer.appendChild(deleteButton);
         photoList.appendChild(imgContainer);
         //que no desaparezca la camara mejoraria la usabilidad quizas
-        //video.srcObject.getTracks().forEach(track => track.stop());
-        //video.srcObject = null;
+        video.srcObject.getTracks().forEach(track => track.stop());
+        video.srcObject = null;
 
 
     });

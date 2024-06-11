@@ -7,6 +7,7 @@ import os
 import json
 import uuid
 import time
+from flask_mail import Mail, Message
 
 app = Flask(__name__)
 
@@ -20,6 +21,16 @@ app.config["MYSQL_HOST"] = "sql.freedb.tech"
 app.config["MYSQL_USER"] = "freedb_streetrp"
 app.config["MYSQL_PASSWORD"] = "h@5E!S9SRJ83yAa"
 app.config["MYSQL_DB"] = "freedb_streetrp"
+
+app.config["MAIL_SERVER"] = "smtp.gmail.com"
+app.config["MAIL_PORT"] = 587
+app.config["MAIL_USE_TLS"] = True
+app.config["MAIL_USE_SSL"] = False
+app.config["MAIL_USERNAME"] = "bernatattoo@gmail.com"
+app.config["MAIL_PASSWORD"] = "wolf xiei bydj helq"
+app.config["MAIL_DEFAULT_SENDER"] = "bernatattoo@gmail.com"
+
+mail = Mail(app)
 mysql = MySQL(app)
 
 
@@ -204,6 +215,7 @@ def add_palet():
             ),
         )
         mysql.connection.commit()
+        send_notification_email(direccion)
         return redirect(url_for("home"))
 
 
@@ -364,6 +376,12 @@ def upload_images(albaran):
     print("hola")
 
     return redirect(url_for("empleado"))
+
+
+def send_notification_email(info):
+    msg = Message("Nuevo palet agregado", recipients=["bernatattoo@gmail.com"])
+    msg.body = f"Se ha agregado un nuevo palet, direccion de entrega: {info}"
+    mail.send(msg)
 
 
 if __name__ == "__main__":

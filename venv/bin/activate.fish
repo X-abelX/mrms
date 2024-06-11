@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/user/Documents/Desarrollo/Abel-Python/mrms/venv"
+set -gx VIRTUAL_ENV "/Users/user/Documents/Desarrollo/Proyectos/Abel-Python/mrms/venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
