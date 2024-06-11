@@ -65,40 +65,34 @@
                     <div class="col-10">
 
                         <h6 class="fs-6 fw-semibold">Adjuntar Imagenes</h6>
-                        <a href="/entrega/cam/{{empleado}}/{{albaran}}" class="text-decoration-none">
-                            <button id="start-camera" class="btn btn-outline-primary  w-100"><img
-                                    src="/static/img/camera.png" alt="camera" style="width: 40px;"></button>
-                            <button id="capture-photo" disabled class="btn btn-success w-100">Capturar
-                                foto</button>
-                        </a>
                     </div>
                 </div>
             </div>
 
-            <!-- <div class="card-body">
+            <div class="card-body">
                 <div class="d-flex flex-column justify-content-start">
 
-                    <div>
+                    <div id="video-display"
+                        class=" justify-content-center align-items-center px-2 vh-100  rounded-top-5 bg-light">
                         <video id="camera-stream" autoplay class="h-100 w-100 mt-3" style="display: none;"></video>
                         <canvas id="photo" width="60" height="40" style="display: none;"></canvas>
                     </div>
-                    <div class="d-grid gap-2 d-lg-inline-block d-flex flex-row mt-2">
-                        <button id="start-camera" class="btn btn-outline-primary  w-100"><img
-                                src="/static/img/camera.png" alt="camera" style="width: 40px;"></button>
-                        <button id="capture-photo" disabled class="btn btn-success w-100">Capturar
-                            foto</button>
-                    </div>
+                    <button id="start-camera" class="btn btn-outline-primary  w-100"><img src="/static/img/camera.png"
+                            alt="camera" style="width: 40px;"></button>
+                    <button id="capture-photo" disabled class="btn btn-success w-100 z-3">Capturar
+                        foto</button>
+
                     <div id="imageSlider" class="mb-2 w-100">
                         <!-- Imágenes tomadas con la cámara web se agregarán aquí -->
-            <!-- <div id="photo-list" class="d-block w-100"></div> -->
+                        <div id="photo-list" class="d-block w-100"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    </div> -->
-    </div>
-    <button type="submit" class="btn btn-success w-100">Entregar</button>
-    <a href="/entregar">
-        <button class="btn btn-danger w-100 mt-4">Cancelar</button>
-    </a>
+        <button type="submit" class="btn btn-success w-100">Entregar</button>
+        <a href="/entregar">
+            <button class="btn btn-danger w-100 mt-4">Cancelar</button>
+        </a>
 
     </div>
 </main>
@@ -110,6 +104,7 @@
 
 <script>
     const video = document.getElementById('camera-stream');
+    const videoDisplay = document.getElementById('video-display');
     const canvas = document.getElementById('photo');
 
     const startCameraButton = document.getElementById('start-camera');
@@ -118,11 +113,14 @@
     const photoList = document.getElementById('photo-list');
 
     capturePhotoButton.style.display = 'none'
+    videoDisplay.style.display = 'none'
 
 
 
     startCameraButton.addEventListener('click', function () {
         video.style.display = 'block';
+        videoDisplay.style.display = 'block';
+
 
         navigator.mediaDevices.getUserMedia({
             video: { facingMode: 'environment' }
@@ -154,6 +152,11 @@
         imgContainer.appendChild(img);
         imgContainer.appendChild(deleteButton);
         photoList.appendChild(imgContainer);
+        startCameraButton.style.display = 'block'
+        capturePhotoButton.style.display = 'none'
+        video.style.display = 'none';
+        videoDisplay.style.display = 'none';
+
         //que no desaparezca la camara mejoraria la usabilidad quizas
         video.srcObject.getTracks().forEach(track => track.stop());
         video.srcObject = null;
