@@ -1,2 +1,2 @@
-venv/
-requirements.txt
+./venv
+.requirements.txt
