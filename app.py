@@ -18,9 +18,9 @@ app.secret_key = "aarz2005"
 # configuracion de la base de datos
 
 app.config["MYSQL_HOST"] = "sql.freedb.tech"
-app.config["MYSQL_USER"] = "freedb_streetrp"
-app.config["MYSQL_PASSWORD"] = "h@5E!S9SRJ83yAa"
-app.config["MYSQL_DB"] = "freedb_streetrp"
+app.config["MYSQL_USER"] = "freedb_abelro"
+app.config["MYSQL_PASSWORD"] = "U??*zph4wAe8ANF"
+app.config["MYSQL_DB"] = "freedb_mycandel"
 
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 587
@@ -104,13 +104,13 @@ def admin():
 def entregas():
 
     if "username" in session and session["role"] == "empleado":
+
         id_empleado = str(session["userId"])
         conn = mysql.connection.cursor()
         conn.execute("SELECT * FROM palets WHERE empleado = %s", id_empleado)
         data = conn.fetchall()
 
-        con = mysql.connection.cursor()
-
+        print(id_empleado)
         return render_template("entregar.html", data=data)
     else:
         return redirect(url_for("authError"))
