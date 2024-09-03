@@ -197,7 +197,7 @@ def add_palet():
         zona = request.form.get("zona")
         conn = mysql.connection.cursor()
         conn.execute(
-            "INSERT INTO palets (albaran, contacto, direccion, fecha_entrega, numpalets, peso, tipo_palet, nota, despaletizado,servicio,zona,direccion_recogida,contacto_recogida) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s,%s,%s)",
+            "INSERT INTO palets (albaran, contacto, direccion, fecha_entrega, numpalets, peso, tipo_palet, nota, despaletizado,servicio,zona,direccion_recogida,contacto_recogida,empresa) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s,%s,%s)",
             (
                 id,
                 contacto,
@@ -212,6 +212,7 @@ def add_palet():
                 zona,
                 dir_recogida,
                 contacto_recogida,
+                'mrms'
             ),
         )
         mysql.connection.commit()
@@ -226,7 +227,7 @@ def assign_palets():
         conn = mysql.connection.cursor()
         for palet_id in selected_palets:
             conn.execute(
-                "UPDATE palets SET empresa = %s WHERE id = %s", ("mam", palet_id)
+                "UPDATE palets SET empresa = %s WHERE id = %s", ("mrms", palet_id)
             )
         mysql.connection.commit()
         return redirect(url_for("admin"))
